@@ -16,7 +16,8 @@ import getpass
 
 print('Routing for Roaming tester')
 print('Before test, make sure to copy content of mail from Roaming team to local file "roaming-input", WITHOUT entering senders signature!')
-print('Please enter credentials for vsr-grx-bg1')
+print('Please enter credentials for router')
+ipadd1 = input('IP Address is: ')
 username = input('Username: ')
 password = getpass.getpass('Password: ')
 
@@ -25,7 +26,7 @@ try:
 #    password = input('Password: ')
     child = paramiko.SSHClient()
     child.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    child.connect('10.245.188.10', 22, username, password)
+    child.connect(ipadd1, 22, username, password)
     session = child.invoke_shell()
     stdout = session.recv(65556)
     session.send('terminal length 0\n')
@@ -78,10 +79,10 @@ f2.flush()
 
 print('Step 2 - Contacting Router and Getting Information, First Run')
 
-#paramiko komande za pristup vsr-grx-bg1
+#paramiko komande za pristup ruteru
 child = paramiko.SSHClient()
 child.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-child.connect('10.245.188.10', 22, username, password)
+child.connect(ipadd1, 22, username, password)
 session = child.invoke_shell()
 stdout = session.recv(65556)
 session.send('terminal length 0\n')
